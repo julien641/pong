@@ -88,6 +88,9 @@ bool flag = false;
 int aicount = 0;
 int maxaicount = 6;
 bool ais;
+
+// Initialize paddles , fields, ai,  and many special values
+
 void Initilizer(int x, int y, int maxscores, int paddlesize,bool ai,int aicount) {
 	ais = ai;
 	maxscore = maxscores;
@@ -115,18 +118,19 @@ void Initilizer(int x, int y, int maxscores, int paddlesize,bool ai,int aicount)
 	ball.dy = -1;
 	ball.x_ = ball.startingposx;
 	ball.y_ = resetingball();
-
+	srand(time(NULL));
 
 
 
 }
+//reset ball to the middle usually done during a goal
 int resetingball() {
-	srand(time(NULL));
+	
 	return  (((rand() % (field.maxheight - 1 - field.minheight))) + field.minheight);
 
 
 }
-
+//turn off or on console cursor
 void ShowConsoleCursor(bool showFlag)
 {
 
@@ -139,7 +143,7 @@ void ShowConsoleCursor(bool showFlag)
 	SetConsoleCursorInfo(out, &cursorInfo);
 
 }
-
+//clear the console in a area
 void clrscr(int amountchar, int amountrow, int startingx, int startingy, char x)
 {
 
@@ -174,7 +178,7 @@ void clrscr(int amountchar, int amountrow, int startingx, int startingy, char x)
 }
 
 
-
+//sets the location of the cursor to output
 void GotoXY(int x, int y)	//GotoXY sets location for character through x and y coordinates as parameters 
 {
 
@@ -186,7 +190,7 @@ void GotoXY(int x, int y)	//GotoXY sets location for character through x and y c
 
 }
 
-
+//cpu ai
 void cpuai() {
 	aicount++;
 
@@ -288,6 +292,7 @@ void cpuai() {
 
 }
 }
+//gets the keyboard presses not async
 void movement()
 {
 
@@ -357,7 +362,7 @@ void movement()
 
 	}
 }
-
+//Starting menu
 int menuchoice()
 {
 	if (0 != _kbhit())
@@ -427,6 +432,8 @@ int menuchoice()
 	}
 	return 0;
 }
+
+//output the the field paddle and score
 void draw()
 {
 	for (int i = 0; i < field.minheight - 3; i++) {
@@ -503,6 +510,8 @@ void draw()
 	GotoXY(0, 0);
 
 }
+
+//checks the paddle collision
 int checkingpaddlecollison(int paddle1)
 {
 	if ((paddle[paddle1].x == ball.x_))
@@ -561,7 +570,7 @@ int checkingpaddlecollison(int paddle1)
 	return ball.dy;
 
 }
-
+//draw paddles
 void drawpaddle(int paddlenum) {
 	for (int i = paddle[paddlenum].y; i < paddle[paddlenum].y + paddle[paddlenum].length; i++)
 	{
